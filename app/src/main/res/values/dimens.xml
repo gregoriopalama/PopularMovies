@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_poster_width">90dp</dimen>
+    <dimen name="movie_big_poster_height">200dp</dimen>
+    <dimen name="movie_horizontal_margin">16dp</dimen>
+    <dimen name="movie_vertical_margin">16dp</dimen>
+    <dimen name="movie_overview_separator_height">1dp</dimen>
+    <dimen name="movie_overview_separator_margin_top">8dp</dimen>
+
+    <dimen name="movie_lbl_size">18sp</dimen>
+    <dimen name="movie_year_size">24sp</dimen>
+
+    <dimen name="title_shadow_radius">16</dimen>
+    <dimen name="title_shadow_dx">0</dimen>
+    <dimen name="title_shadow_dy">0</dimen>
+
+    <dimen name="movies_list_bottom_margin">55dp</dimen>
+
+    <dimen name="offline_width">250dp</dimen>
+</resources>

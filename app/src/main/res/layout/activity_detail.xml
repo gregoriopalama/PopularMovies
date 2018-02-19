@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movieViewModel"
+            type="com.gregoriopalama.udacity.popularmovies.viewmodel.MovieViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.gregoriopalama.udacity.popularmovies.ui.detail.DetailActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary">
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:expandedTitleTextAppearance="@style/AppTheme.CollapsingToolbarExpanded">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/movie_big_poster_height"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/movie_poster_big"
+                    android:contentDescription="@{movieViewModel.movie.title}"
+                    app:layout_collapseMode="parallax"
+                    app:moviedb_image_url_big="@{movieViewModel.movie.posterPath}"/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    app:layout_collapseMode="pin"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/poster_thumb"
+                    android:layout_width="@dimen/movie_poster_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@{movieViewModel.movie.title}"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/year"
+                    app:moviedb_image_url="@{movieViewModel.movie.posterPath}" />
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:text="@{movieViewModel.releaseYear}"
+                    android:textAppearance="@style/AppTheme.MovieYear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/poster_thumb"
+                    app:layout_constraintTop_toTopOf="@id/poster_thumb"
+                    tools:text="@string/tools_movie_year" />
+
+                <TextView
+                    android:id="@+id/vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:text="@{movieViewModel.formattedVoteAverage}"
+                    android:textAppearance="@style/AppTheme.MovieYear"
+                    app:layout_constraintStart_toStartOf="@id/year"
+                    app:layout_constraintTop_toBottomOf="@id/year"
+                    tools:text="@string/tools_movie_average" />
+
+                <TextView
+                    android:id="@+id/release_date_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:textAppearance="@style/AppTheme.Label"
+                    android:text="@string/movie_lbl_release_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/poster_thumb" />
+
+                <TextView
+                    android:id="@+id/release_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:text="@{movieViewModel.formattedReleaseDate}"
+                    tools:text="@string/tools_movie_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/release_date_lbl"/>
+
+                <TextView
+                    android:id="@+id/original_title_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:textAppearance="@style/AppTheme.Label"
+                    android:text="@string/movie_lbl_original_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/release_date"/>
+
+                <TextView
+                    android:id="@+id/original_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:text="@{movieViewModel.movie.originalTitle}"
+                    tools:text="@string/tools_movie_original_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/original_title_lbl"/>
+
+                <TextView
+                    android:id="@+id/overview_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:textAppearance="@style/AppTheme.Label"
+                    android:text="@string/movie_lbl_overview"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/original_title"/>
+
+                <View
+                    android:id="@+id/overview_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/movie_overview_separator_height"
+                    android:background="@color/primary_dark_color"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_overview_separator_margin_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/overview_lbl"/>
+
+                <TextView
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/movie_horizontal_margin"
+                    android:layout_marginStart="@dimen/movie_horizontal_margin"
+                    android:layout_marginTop="@dimen/movie_vertical_margin"
+                    android:paddingBottom="@dimen/movie_vertical_margin"
+                    android:text="@{movieViewModel.movie.overview}"
+                    tools:text="@string/tools_movie_overview"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/overview_lbl"/>
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="movies_list_columns">2</integer>
+
+    <integer name="movie_vote_average_maximum_digits">1</integer>
+
+    <integer name="sort_order_default">0</integer>
+</resources>

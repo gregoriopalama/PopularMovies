@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="obj"
+            type="com.gregoriopalama.udacity.popularmovies.api.dto.Movie"/>
+        <variable
+            name="listeners"
+            type="com.gregoriopalama.udacity.popularmovies.ui.list.ItemMovieListener" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@{obj.title}"
+            android:scaleType="fitCenter"
+            android:clickable="true"
+            android:onClick="@{() -> listeners.openDetail(obj)}"
+            app:moviedb_image_url="@{obj.posterPath}"
+            android:focusable="true" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

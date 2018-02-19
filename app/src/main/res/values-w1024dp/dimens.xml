@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_poster_width">300dp</dimen>
+    <dimen name="movie_big_poster_height">250dp</dimen>
+</resources>

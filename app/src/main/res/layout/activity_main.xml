@@ -1,18 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.gregoriopalama.udacity.popularmovies.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.gregoriopalama.udacity.popularmovies.ui.list.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:layout_width="@dimen/offline_width"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/offline"
+            android:id="@+id/offline_image"
+            android:src="@drawable/ic_offline"
+            android:tint="@color/primary_dark_color"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/offline_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/offline_message"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/offline_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/try_now"
+            android:id="@+id/offline_trynow"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/offline_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/movies_swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/movies_list_bottom_margin"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movies_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_movie" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_color"
+            app:itemIconTint="@drawable/sort_bottom_nav_selector"
+            app:itemTextColor="@drawable/sort_bottom_nav_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/main_bottom_nav" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

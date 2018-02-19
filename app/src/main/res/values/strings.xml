@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">PopularMovies</string>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="sort_popular">Popular</string>
+    <string name="sort_top_rated">Top Rated</string>
+
+    <string name="image_size_dir">w185</string>
+    <string name="image_size_dir_toolbar">w342</string>
+
+    <string name="tools_movie_year">2018</string>
+    <string name="tools_movie_date">01/01/2018</string>
+    <string name="tools_movie_average">8.1/10</string>
+    <string name="tools_movie_original_title">MY GREAT MOVIE</string>
+    <string name="tools_movie_overview">The best movie EVER!</string>
+
+    <string name="movie_lbl_release_date">Release date:</string>
+    <string name="movie_lbl_original_title">Original title:</string>
+    <string name="movie_lbl_overview">Overview</string>
+
+    <string name="movie_vote_avegare_base">/10</string>
+
+    <string name="offline">Offline</string>
+    <string name="offline_message">Oops, it appears you are offline! Try again later or</string>
+    <string name="try_now">Try now!</string>
+
+    <string name="sort_order_pref">com.gregoriopala.udacity.popularmovies.sortorder</string>
 </resources>
