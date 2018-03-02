@@ -1,4 +1,4 @@
-package com.gregoriopalama.udacity.popularmovies.api.dto;
+package com.gregoriopalama.udacity.popularmovies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Movie Dto
+ * Movie Model
  *
  * @author Gregorio Palamà
  */
@@ -50,6 +50,8 @@ public class Movie implements Parcelable {
     @SerializedName("release_date")
     Date releaseDate;
 
+    boolean favorite;
+
     public Movie(int id, boolean video, int voteCount, float voteAverage, String title, float popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String backdropPath, boolean adult, String overview, Date releaseDate) {
         this.id = id;
         this.video = video;
@@ -65,6 +67,9 @@ public class Movie implements Parcelable {
         this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
+    }
+
+    public Movie() {
     }
 
     public int getId() {
@@ -179,6 +184,14 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Movie createFromParcel(Parcel in) {
             return new Movie(in);
@@ -191,23 +204,27 @@ public class Movie implements Parcelable {
 
     public Movie(Parcel in){
         this.id = in.readInt();
-        this.originalTitle = in.readString();
         this.title = in.readString();
         this.posterPath = in.readString();
         this.overview = in.readString();
         this.voteAverage = in.readFloat();
+        this.voteCount = in.readInt();
         this.releaseDate = (Date) in.readSerializable();
+        this.backdropPath = in.readString();
+        this.favorite = in.readByte() != 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeString(this.originalTitle);
         dest.writeString(this.title);
         dest.writeString(this.posterPath);
         dest.writeString(this.overview);
         dest.writeFloat(this.voteAverage);
+        dest.writeInt(this.voteCount);
         dest.writeSerializable(this.releaseDate);
+        dest.writeString(this.backdropPath);
+        dest.writeByte((byte) (this.favorite ? 1 : 0));
     }
 
     @Override

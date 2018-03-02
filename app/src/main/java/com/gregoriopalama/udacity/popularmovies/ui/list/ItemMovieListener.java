@@ -1,6 +1,8 @@
 package com.gregoriopalama.udacity.popularmovies.ui.list;
 
-import com.gregoriopalama.udacity.popularmovies.api.dto.Movie;
+import android.widget.ImageView;
+
+import com.gregoriopalama.udacity.popularmovies.model.Movie;
 import com.gregoriopalama.udacity.popularmovies.ui.GenericViewHolderListener;
 
 /**
@@ -12,5 +14,5 @@ import com.gregoriopalama.udacity.popularmovies.ui.GenericViewHolderListener;
  */
 
 public interface ItemMovieListener extends GenericViewHolderListener {
-    void openDetail(Movie movie);
+    void openDetail(Movie movie, ImageView imageView);
 }

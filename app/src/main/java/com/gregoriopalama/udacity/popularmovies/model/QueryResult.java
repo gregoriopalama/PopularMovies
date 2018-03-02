@@ -1,11 +1,11 @@
-package com.gregoriopalama.udacity.popularmovies.api.dto;
+package com.gregoriopalama.udacity.popularmovies.model;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * QueryResult Dto, it maps the result from MovieDb API
+ * QueryResult Model, it maps the result from MovieDb API
  *
  * @author Gregorio Palamà
  */

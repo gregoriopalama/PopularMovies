@@ -14,11 +14,11 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/offline"
             android:id="@+id/offline_image"
-            android:src="@drawable/ic_offline"
             android:tint="@color/primary_dark_color"
             android:layout_marginLeft="@dimen/movie_horizontal_margin"
             android:layout_marginRight="@dimen/movie_horizontal_margin"
             android:layout_marginTop="@dimen/movie_vertical_margin"
+            app:srcCompat="@drawable/ic_offline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +46,37 @@
             app:layout_constraintTop_toBottomOf="@id/offline_message"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/no_favorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_favorites"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/secondary_color"
+            android:indeterminateTintMode="src_in"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/movies_swipe_refresh"

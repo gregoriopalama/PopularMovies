@@ -1,4 +1,4 @@
-package com.gregoriopalama.udacity.popularmovies.ui;
+package com.gregoriopalama.udacity.popularmovies.ui.bindingadapters;
 
 import android.databinding.BindingAdapter;
 import android.net.Uri;
@@ -21,7 +21,7 @@ public class MovieDBImageBindingAdapter {
         if (url.equals(""))
             return;
 
-        loadImage(imageView,
+        loadMovieDBImage(imageView,
                 url,
                 imageView.getContext().getResources().getString(R.string.image_size_dir));
     }
@@ -31,7 +31,7 @@ public class MovieDBImageBindingAdapter {
         if (url.equals(""))
             return;
 
-        loadImage(imageView,
+        loadMovieDBImage(imageView,
                 url,
                 imageView.getContext().getResources().getString(R.string.image_size_dir_toolbar));
     }
@@ -44,11 +44,29 @@ public class MovieDBImageBindingAdapter {
      * @param url the url to the image
      * @param image_dir the directory of the size of the image we want to load
      */
-    public static void loadImage(ImageView imageView, String url, String image_dir) {
+    public static void loadMovieDBImage(ImageView imageView, String url, String image_dir) {
         Uri builtUri = Uri.parse(Constants.MOVIEDB_IMAGE_BASE_URL).buildUpon()
                 .appendPath(image_dir)
                 .appendEncodedPath(url)
                 .build();
-        Picasso.with(imageView.getContext()).load(builtUri.toString()).into(imageView);
+
+        Picasso.with(imageView.getContext()).load(builtUri.toString())
+                .placeholder(R.drawable.ic_movie)
+                .into(imageView);
+    }
+
+    @BindingAdapter(value={"youtube_thumb"})
+    public static void loadYoutubeThumb(ImageView imageView, String videoId) {
+        if (videoId.equals(""))
+            return;
+
+        Uri builtUri = Uri.parse(Constants.YOUTUBE_THUMB_BASE_URL).buildUpon()
+                .appendPath(videoId)
+                .appendPath(imageView.getContext().getResources().getString(R.string.youtube_thumb_size))
+                .build();
+
+        Picasso.with(imageView.getContext()).load(builtUri.toString())
+                .placeholder(R.drawable.ic_movie)
+                .into(imageView);
     }
 }

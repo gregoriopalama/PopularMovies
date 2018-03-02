@@ -1,6 +1,7 @@
 package com.gregoriopalama.udacity.popularmovies.di;
 
 import com.gregoriopalama.udacity.popularmovies.ui.detail.DetailActivity;
+import com.gregoriopalama.udacity.popularmovies.ui.detail.ReviewsActivity;
 import com.gregoriopalama.udacity.popularmovies.ui.list.MainActivity;
 
 import dagger.Module;
@@ -20,4 +21,7 @@ public abstract class ActivitiesModule {
 
     @ContributesAndroidInjector
     abstract DetailActivity bindDetailActivity();
+
+    @ContributesAndroidInjector
+    abstract ReviewsActivity bindReviewsActivity();
 }

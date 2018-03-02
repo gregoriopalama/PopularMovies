@@ -17,9 +17,34 @@
         <item name="android:textSize">@dimen/movie_lbl_size</item>
     </style>
 
+    <style name="AppTheme.ReleaseDate" parent="android:TextAppearance">
+        <item name="android:textColor">@color/primary_dark_color</item>
+    </style>
+
     <style name="AppTheme.MovieYear" parent="android:TextAppearance">
         <item name="android:textColor">@color/primary_dark_color</item>
         <item name="android:textSize">@dimen/movie_year_size</item>
+    </style>
+
+    <style name="AppTheme.VoteAverage" parent="android:TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/movie_vote_average_text_size</item>
+    </style>
+
+    <style name="AppTheme.TitleGrid" parent="android:TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.VoteGrid" parent="AppTheme.TitleGrid">
+        <item name="android:textSize">@dimen/movie_vote_average_text_size_grid</item>
+    </style>
+
+    <style name="AppTheme.VotesNumber" parent="android:TextAppearance">
+        <item name="android:textColor">@color/primary_dark_color</item>
+    </style>
+
+    <style name="AppTheme.NoConnectionMessage" parent="android:TextAppearance">
+        <item name="android:textColor">@color/no_connection_message_text</item>
     </style>
 
     <style name="AppTheme.CollapsingToolbarExpanded">

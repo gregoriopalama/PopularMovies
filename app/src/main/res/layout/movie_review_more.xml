@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="obj"
+            type="String" />
+        <variable
+            name="listeners"
+            type="com.gregoriopalama.udacity.popularmovies.ui.detail.ReviewListener" />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> listeners.openReviewDetails()}">
+
+        <TextView
+            android:id="@+id/review_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/AppTheme.Label"
+            android:layout_marginLeft="@dimen/movie_horizontal_margin"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginBottom="@dimen/movie_vertical_margin"
+            android:text="@string/reviews_more"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/reviews_more"/>
+
+        <ImageView
+            android:id="@+id/review_number"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/review_icon_size"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            app:round_icon_name="@{obj}"
+            app:layout_constraintEnd_toStartOf="@id/review_arrow"
+            app:layout_constraintTop_toTopOf="@id/review_arrow"/>
+
+        <ImageView
+            android:id="@+id/review_arrow"
+            android:layout_width="@dimen/review_icon_size"
+            android:layout_height="@dimen/review_icon_size"
+            android:scaleType="fitCenter"
+            android:tint="@color/primary_dark_color"
+            android:layout_marginRight="@dimen/movie_horizontal_margin"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_marginBottom="@dimen/movie_vertical_margin"
+            app:srcCompat="@drawable/ic_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

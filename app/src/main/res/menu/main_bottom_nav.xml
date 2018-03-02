@@ -13,6 +13,11 @@
             android:icon="@drawable/ic_sort_top_rated"
             android:title="@string/sort_top_rated"
             app:showAsAction="ifRoom"/>
+        <item
+            android:id="@+id/sort_favorite"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/sort_favorite"
+            app:showAsAction="ifRoom"/>
     </group>
 
 </menu>

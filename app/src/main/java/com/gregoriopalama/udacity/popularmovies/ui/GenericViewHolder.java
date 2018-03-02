@@ -2,6 +2,7 @@ package com.gregoriopalama.udacity.popularmovies.ui;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.gregoriopalama.udacity.popularmovies.BR;
 
@@ -15,7 +16,7 @@ import com.gregoriopalama.udacity.popularmovies.BR;
  * @author Gregorio Palamà
  */
 public class GenericViewHolder extends RecyclerView.ViewHolder {
-    private final ViewDataBinding binding;
+    public final ViewDataBinding binding;
     public GenericViewHolder(ViewDataBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
@@ -29,6 +30,13 @@ public class GenericViewHolder extends RecyclerView.ViewHolder {
     public void bind(Object obj, GenericViewHolderListener listeners) {
         binding.setVariable(BR.obj, obj);
         binding.setVariable(BR.listeners, listeners);
+        binding.executePendingBindings();
+    }
+
+    public void bind(Object obj, GenericViewHolderListener listeners, View sharedView) {
+        binding.setVariable(BR.obj, obj);
+        binding.setVariable(BR.listeners, listeners);
+        binding.setVariable(BR.sharedView, sharedView);
         binding.executePendingBindings();
     }
 

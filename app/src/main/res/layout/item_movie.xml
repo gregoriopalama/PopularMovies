@@ -4,17 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="obj"
-            type="com.gregoriopalama.udacity.popularmovies.api.dto.Movie"/>
+            type="com.gregoriopalama.udacity.popularmovies.model.Movie"/>
         <variable
             name="listeners"
             type="com.gregoriopalama.udacity.popularmovies.ui.list.ItemMovieListener" />
+        <variable
+            name="sharedView"
+            type="android.widget.ImageView" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> listeners.openDetail(obj, sharedView)}">
 
         <ImageView
             android:layout_width="match_parent"
@@ -22,10 +30,60 @@
             android:adjustViewBounds="true"
             android:contentDescription="@{obj.title}"
             android:scaleType="fitCenter"
-            android:clickable="true"
-            android:onClick="@{() -> listeners.openDetail(obj)}"
+            android:id="@+id/movie_image"
+            android:transitionName="@string/movie_transition_string"
             app:moviedb_image_url="@{obj.posterPath}"
             android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/movie_title_height"
+            android:background="@color/movie_title_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/movie_vote_agerage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/movie_title_grid_vertical_margin"
+            android:layout_marginStart="@dimen/movie_horizontal_margin"
+            android:layout_marginEnd="@dimen/movie_horizontal_margin"
+            android:textAppearance="@style/AppTheme.VoteGrid"
+            tools:text="@string/tools_movie_title"
+            app:vote_average="@{obj.voteAverage}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="@dimen/movie_favorite_size_grid"
+            android:layout_height="@dimen/movie_favorite_size_grid"
+            android:layout_marginStart="@dimen/movie_horizontal_margin"
+            android:layout_marginBottom="@dimen/movie_title_grid_vertical_margin"
+            android:tint="@android:color/white"
+            android:contentDescription="@string/movie_favorite_description"
+            android:visibility="@{obj.favorite == true ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toEndOf="@id/movie_vote_agerage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_favorite" />
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/movie_title_grid_vertical_margin"
+            android:paddingStart="@dimen/movie_horizontal_margin"
+            android:paddingEnd="@dimen/movie_horizontal_margin"
+            android:text="@{obj.title}"
+            android:textAppearance="@style/AppTheme.TitleGrid"
+            android:background="@drawable/movie_title_background"
+            android:paddingTop="@dimen/movie_vertical_margin"
+            tools:text="@string/tools_movie_title"
+            app:layout_constraintBottom_toTopOf="@id/movie_vote_agerage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

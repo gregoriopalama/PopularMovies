@@ -22,7 +22,13 @@
         </activity>
         <activity
             android:name=".ui.detail.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.detail.ReviewsActivity" />
+
+        <provider
+            android:name=".persistence.FavoriteProvider"
+            android:authorities="com.gregoriopalama.udacity.popularmovies"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

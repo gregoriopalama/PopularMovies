@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.gregoriopalama.udacity.popularmovies.viewmodel.MovieViewModel;
 import com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewModel;
+import com.gregoriopalama.udacity.popularmovies.viewmodel.ReviewsListViewModel;
 import com.gregoriopalama.udacity.popularmovies.viewmodel.ViewModelFactory;
 import com.gregoriopalama.udacity.popularmovies.viewmodel.ViewModelKey;
 
@@ -29,6 +30,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieViewModel.class)
     abstract ViewModel bindMovieViewModel(MovieViewModel movieViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ReviewsListViewModel.class)
+    abstract ViewModel bindReviewsListViewModel(ReviewsListViewModel reviewsListViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

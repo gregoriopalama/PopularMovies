@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="obj"
+            type="com.gregoriopalama.udacity.popularmovies.model.Video"/>
+        <variable
+            name="listeners"
+            type="com.gregoriopalama.udacity.popularmovies.ui.detail.VideoListener"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/movie_horizontal_margin">
+        <ImageView
+            android:id="@+id/video_thumb"
+            android:layout_width="@dimen/movie_video_thumb_width"
+            android:layout_height="@dimen/movie_video_thumb_height"
+            android:adjustViewBounds="true"
+            android:contentDescription="@{obj.name}"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:youtube_thumb="@{obj.key}"
+            android:layout_margin="@dimen/movie_no_margin"/>
+
+        <TextView
+            android:layout_width="@dimen/movie_video_thumb_width"
+            android:layout_height="@dimen/movie_video_thumb_height"
+            android:paddingBottom="@dimen/movie_video_thumb_name_margin"
+            android:paddingStart="@dimen/movie_video_thumb_name_margin"
+            android:paddingEnd="@dimen/movie_video_thumb_name_margin"
+            android:paddingTop="@dimen/movie_video_thumb_name_margin_top"
+            android:id="@+id/video_name"
+            android:text="@{obj.name}"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:background="@drawable/video_thumb_name_background"
+            android:textColor="@color/primary_dark_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:background="@color/secondary_color"
+            tools:text="@string/tools_video_name"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:onClick="@{()->listeners.openVideo(obj.key)}"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

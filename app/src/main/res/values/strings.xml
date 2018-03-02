@@ -3,25 +3,50 @@
 
     <string name="sort_popular">Popular</string>
     <string name="sort_top_rated">Top Rated</string>
+    <string name="sort_favorite">Favorites</string>
 
     <string name="image_size_dir">w185</string>
     <string name="image_size_dir_toolbar">w342</string>
 
-    <string name="tools_movie_year">2018</string>
     <string name="tools_movie_date">01/01/2018</string>
-    <string name="tools_movie_average">8.1/10</string>
+    <string name="tools_movie_average">8.8</string>
     <string name="tools_movie_original_title">MY GREAT MOVIE</string>
     <string name="tools_movie_overview">The best movie EVER!</string>
+    <string name="tools_movie_title">Titanic</string>
+    <string name="tools_movie_votes_number">2317</string>
 
     <string name="movie_lbl_release_date">Release date:</string>
     <string name="movie_lbl_original_title">Original title:</string>
     <string name="movie_lbl_overview">Overview</string>
+    <string name="movie_lbl_videos">Videos</string>
 
-    <string name="movie_vote_avegare_base">/10</string>
+    <string name="movie_favorite_description">Favorite</string>
+    <string name="movie_votes_number">Number of votes</string>
+
+    <string name="movie_vote_avegare_base"></string>
 
     <string name="offline">Offline</string>
     <string name="offline_message">Oops, it appears you are offline! Try again later or</string>
     <string name="try_now">Try now!</string>
 
+    <string name="no_favorites">There are no favorite movies yet!</string>
+
     <string name="sort_order_pref">com.gregoriopala.udacity.popularmovies.sortorder</string>
+
+    <string name="tools_video_name">Trailer</string>
+
+    <string name="youtube_thumb_size">0.jpg</string>
+
+    <string name="tools_review_author">Leonardo Da Vinci</string>
+    <string name="tools_review_text">Lorem ipsum dolor sit vinci</string>
+
+    <string name="movie_lbl_reviews">Reviews</string>
+
+    <string name="movie_transition_string">com.gregoriopalama.udacity.popularmovies.movietransition</string>
+
+    <string name="reviews_more">See all the reviews</string>
+    <string name="reviews_lists_title">Reviews for </string>
+
+    <string name="movie_detail_no_connection_message">Oops, it appears you are offline.
+    Some informations will be not available at the moment.</string>
 </resources>

@@ -2,17 +2,23 @@ package com.gregoriopalama.udacity.popularmovies.ui.list;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.gregoriopalama.udacity.popularmovies.Constants;
 import com.gregoriopalama.udacity.popularmovies.R;
+import com.gregoriopalama.udacity.popularmovies.model.Movie;
 import com.gregoriopalama.udacity.popularmovies.databinding.ActivityMainBinding;
+import com.gregoriopalama.udacity.popularmovies.ui.ConnectivityUtils;
+import com.gregoriopalama.udacity.popularmovies.ui.detail.DetailActivity;
 import com.gregoriopalama.udacity.popularmovies.viewmodel.ViewModelFactory;
 import com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewModel;
 
@@ -20,6 +26,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import static com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewModel.SORT_ORDER_FAVORITE;
 import static com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewModel.SORT_ORDER_POPULAR;
 import static com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewModel.SORT_ORDER_TOP_RATED;
 
@@ -28,7 +35,8 @@ import static com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewM
  *
  * @author Gregorio Palamà
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemMovieListener {
+    private final static int REQUEST_FAVORITE = 100;
 
     @Inject
     ViewModelFactory popularMoviesViewModelFactory;
@@ -48,25 +56,33 @@ public class MainActivity extends AppCompatActivity {
         moviesListViewModel = ViewModelProviders.of(this, popularMoviesViewModelFactory)
                 .get(MoviesListViewModel.class);
 
-        binding.offlineTrynow.setOnClickListener((view) -> {
-            if (isConnected()) {
-                setupOnline();
-            }
-        });
         setupBottomNavigation();
         setupSwipeToRefresh();
         setupUI();
+        setupObservers();
 
-        moviesListViewModel.getMovies().observe(this, movies -> adapter.setItems(movies));
-        moviesListViewModel.getSortOrder()
-                .observe(this, sortOrder -> refreshMovies(sortOrder));
-
-        if (!isConnected()) {
+        if (!ConnectivityUtils.isConnected(getApplicationContext())) {
             setupUiOffline();
             return;
         }
 
         setupOnline();
+    }
+
+    private void setupObservers() {
+        moviesListViewModel.getMovies().observe(this, (movies) -> {
+            adapter.setItems(movies);
+            binding.progress.setVisibility(View.GONE);
+
+            if (movies.size() == 0
+                && getSortOrder() == SORT_ORDER_FAVORITE) {
+                binding.noFavorites.setVisibility(View.VISIBLE);
+            } else {
+                binding.moviesSwipeRefresh.setVisibility(View.VISIBLE);
+            }
+        });
+        moviesListViewModel.getSortOrder()
+                .observe(this, sortOrder -> refreshMovies(sortOrder));
     }
 
     private void setupSwipeToRefresh() {
@@ -90,12 +106,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshMovies(int sortOrder) {
+        binding.moviesSwipeRefresh.setVisibility(View.GONE);
+        binding.progress.setVisibility(View.VISIBLE);
+        binding.noFavorites.setVisibility(View.GONE);
         switch (sortOrder) {
             case SORT_ORDER_POPULAR:
-                moviesListViewModel.retrievePopularMovies();
+                moviesListViewModel.retrievePopularMovies(getContentResolver());
                 return;
             case SORT_ORDER_TOP_RATED:
-                moviesListViewModel.retrieveTopRatedMovies();
+                moviesListViewModel.retrieveTopRatedMovies(getContentResolver());
+                return;
+            case SORT_ORDER_FAVORITE:
+                moviesListViewModel.retrieveFavorites(getContentResolver());
                 return;
         }
     }
@@ -106,14 +128,20 @@ public class MainActivity extends AppCompatActivity {
         binding.offlineImage.setVisibility(View.VISIBLE);
         binding.offlineMessage.setVisibility(View.VISIBLE);
         binding.offlineTrynow.setVisibility(View.VISIBLE);
+        binding.progress.setVisibility(View.GONE);
     }
 
     public void setupUI() {
         binding.moviesList.setLayoutManager(new GridLayoutManager(getApplicationContext(),
                 getResources().getInteger(R.integer.movies_list_columns)));
         binding.moviesList.setHasFixedSize(true);
-        adapter = new MovieAdapter(new ArrayList<>(), moviesListViewModel);
+        adapter = new MovieAdapter(new ArrayList<>(), this);
         binding.moviesList.setAdapter(adapter);
+        binding.offlineTrynow.setOnClickListener((view) -> {
+            if (ConnectivityUtils.isConnected(getApplicationContext())) {
+                setupOnline();
+            }
+        });
     }
 
     private void setupBottomNavigation() {
@@ -125,10 +153,14 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.sort_top_rated:
                     setSortOrder(SORT_ORDER_TOP_RATED);
                     break;
+                case R.id.sort_favorite:
+                    setSortOrder(SORT_ORDER_FAVORITE);
+                    break;
             }
             item.setChecked(true);
 
-            if (!isConnected()) {
+            if (!ConnectivityUtils.isConnected(getApplicationContext())
+                    && item.getItemId() != R.id.sort_favorite) {
                 setupUiOffline();
             }
 
@@ -140,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SORT_ORDER_TOP_RATED:
                 binding.bottomNavigation.setSelectedItemId(R.id.sort_top_rated);
+                break;
+            case SORT_ORDER_FAVORITE:
+                binding.bottomNavigation.setSelectedItemId(R.id.sort_favorite);
                 break;
         }
     }
@@ -161,19 +196,26 @@ public class MainActivity extends AppCompatActivity {
         return sharedPref.getInt(getString(R.string.sort_order_pref), defaultSortOrder);
     }
 
-    public boolean isConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+    @Override
+    public void openDetail(Movie movie, ImageView imageView) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(Constants.DETAIL_MOVIE_EXTRA_NAME, movie);
 
-        NetworkInfo activeNetwork;
-        try {
-            activeNetwork = cm.getActiveNetworkInfo();
-        } catch (NullPointerException e) {
-            return false;
+        String transitionName = getString(R.string.movie_transition_string);
+
+        View viewStart = imageView;
+
+        ActivityOptionsCompat options = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(this, viewStart, transitionName);
+        ActivityCompat
+                .startActivityForResult(this, intent, REQUEST_FAVORITE, options.toBundle());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_FAVORITE) {
+            refreshMovies(getSortOrder());
         }
-
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
     }
 
 }

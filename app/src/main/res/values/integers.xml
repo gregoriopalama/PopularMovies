@@ -5,4 +5,5 @@
     <integer name="movie_vote_average_maximum_digits">1</integer>
 
     <integer name="sort_order_default">0</integer>
+    <integer name="review_detail_top_offset">20</integer>
 </resources>

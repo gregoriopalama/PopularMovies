@@ -2,13 +2,30 @@
 <resources>
     <dimen name="movie_poster_width">90dp</dimen>
     <dimen name="movie_big_poster_height">200dp</dimen>
+    <dimen name="movie_video_thumb_width">160dp</dimen>
+    <dimen name="movie_video_thumb_height">130dp</dimen>
     <dimen name="movie_horizontal_margin">16dp</dimen>
     <dimen name="movie_vertical_margin">16dp</dimen>
     <dimen name="movie_overview_separator_height">1dp</dimen>
     <dimen name="movie_overview_separator_margin_top">8dp</dimen>
+    <dimen name="movie_no_margin">0dp</dimen>
+    <dimen name="movie_video_thumb_name_margin">8dp</dimen>
+    <dimen name="movie_video_thumb_name_margin_top">105dp</dimen>
+    <dimen name="movie_vote_average_size">40dp</dimen>
+    <dimen name="movie_vote_average_circle_size">35dp</dimen>
+    <dimen name="movie_vote_average_inner_margin">5dp</dimen>
+    <dimen name="movie_vote_average_outer_tickness">2dp</dimen>
+    <dimen name="movie_vote_average_outer_radius">17dp</dimen>
+    <dimen name="movie_votes_number_margin">4dp</dimen>
+    <dimen name="movie_favorite_size">24dp</dimen>
+    <dimen name="movie_favorite_size_grid">18dp</dimen>
+    <dimen name="movie_title_grid_vertical_margin">4dp</dimen>
+    <dimen name="movie_title_height">27dp</dimen>
 
     <dimen name="movie_lbl_size">18sp</dimen>
     <dimen name="movie_year_size">24sp</dimen>
+    <dimen name="movie_vote_average_text_size">18sp</dimen>
+    <dimen name="movie_vote_average_text_size_grid">14sp</dimen>
 
     <dimen name="title_shadow_radius">16</dimen>
     <dimen name="title_shadow_dx">0</dimen>
@@ -17,4 +34,9 @@
     <dimen name="movies_list_bottom_margin">55dp</dimen>
 
     <dimen name="offline_width">250dp</dimen>
+
+    <dimen name="favourite_fab_right_margin">16dp</dimen>
+
+    <dimen name="review_vertical_margin">8dp</dimen>
+    <dimen name="review_icon_size">24dp</dimen>
 </resources>

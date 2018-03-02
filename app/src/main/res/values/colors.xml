@@ -12,4 +12,12 @@
     <color name="secondary_dark_color">#5a9216</color>
     <color name="primary_text_color">#000000</color>
     <color name="secondary_text_color">#000000</color>
+    <color name="overview_background">#d6f4b2</color>
+    <color name="video_name_background">#aa8bc34a</color>
+    <color name="video_name_background_center">#778bc34a</color>
+    <color name="video_name_background_start">#cc8bc34a</color>
+    <color name="movie_title_background">#cc8bc34a</color>
+
+    <color name="no_connection_message_text">#C62828</color>
+    <color name="no_connection_message_background">#55F44336</color>
 </resources>
