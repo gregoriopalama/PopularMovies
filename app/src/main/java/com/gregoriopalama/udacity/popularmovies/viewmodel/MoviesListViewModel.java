@@ -74,17 +74,7 @@ public class MoviesListViewModel extends ViewModel {
                 .map(result -> result.getResults())
                 .map(movies -> {
                     for (Movie movie : movies) {
-                        Cursor cursor = contentResolver
-                                .query(PopularMoviesContract.FavoriteMovieEntry.CONTENT_URI,
-                                        null,
-                                        "_id=?",
-                                        new String[]{Integer.toString(movie.getId())},
-                                        null);
-                        if (cursor.getCount() > 0) {
-                            movie.setFavorite(true);
-                        } else {
-                            movie.setFavorite(false);
-                        }
+                        refreshMovieFavoriteStatus(movie, contentResolver);
                     }
 
                     return movies;
@@ -181,5 +171,45 @@ public class MoviesListViewModel extends ViewModel {
         super.onCleared();
 
         compositeDisposable.clear();
+    }
+
+    public void refreshFavoriteStatusByMovieId(int movieId, ContentResolver contentResolver) {
+        for (Movie movie : movies.getValue()) {
+            if (movie.getId() != movieId) {
+                continue;
+            }
+
+            compositeDisposable.add(Single.create((SingleEmitter<Void> emitter) -> {
+                refreshMovieFavoriteStatus(movie, contentResolver);
+            }).
+            observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableSingleObserver<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            }));
+
+            return;
+        }
+    }
+
+    private void refreshMovieFavoriteStatus(Movie movie, ContentResolver contentResolver) {
+        Cursor cursor = contentResolver
+                .query(PopularMoviesContract.FavoriteMovieEntry.CONTENT_URI,
+                        null,
+                        "_id=?",
+                        new String[]{Integer.toString(movie.getId())},
+                        null);
+        if (cursor.getCount() > 0) {
+            movie.setFavorite(true);
+        } else {
+            movie.setFavorite(false);
+        }
     }
 }

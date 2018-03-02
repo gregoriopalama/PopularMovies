@@ -36,6 +36,7 @@
             android:focusable="true" />
 
         <View
+            android:id="@+id/title_background"
             android:layout_width="match_parent"
             android:layout_height="@dimen/movie_title_height"
             android:background="@color/movie_title_background"
@@ -73,7 +74,7 @@
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/movie_title_grid_vertical_margin"
+            android:paddingBottom="@dimen/movie_title_grid_vertical_margin"
             android:paddingStart="@dimen/movie_horizontal_margin"
             android:paddingEnd="@dimen/movie_horizontal_margin"
             android:text="@{obj.title}"
@@ -81,7 +82,7 @@
             android:background="@drawable/movie_title_background"
             android:paddingTop="@dimen/movie_vertical_margin"
             tools:text="@string/tools_movie_title"
-            app:layout_constraintBottom_toTopOf="@id/movie_vote_agerage"
+            app:layout_constraintBottom_toTopOf="@id/title_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

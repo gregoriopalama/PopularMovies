@@ -37,6 +37,7 @@ import static com.gregoriopalama.udacity.popularmovies.viewmodel.MoviesListViewM
  */
 public class MainActivity extends AppCompatActivity implements ItemMovieListener {
     private final static int REQUEST_FAVORITE = 100;
+    public final static String EXTRA_MOVIE_ID = "com.gregoriopalama.udacity.popularmovies.movie_id_extra";
 
     @Inject
     ViewModelFactory popularMoviesViewModelFactory;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements ItemMovieListener
         setupUI();
         setupObservers();
 
-        if (!ConnectivityUtils.isConnected(getApplicationContext())) {
+        if (!ConnectivityUtils.isConnected(getApplicationContext())
+                && getSortOrder() != SORT_ORDER_FAVORITE) {
             setupUiOffline();
             return;
         }
@@ -214,7 +216,19 @@ public class MainActivity extends AppCompatActivity implements ItemMovieListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_FAVORITE) {
-            refreshMovies(getSortOrder());
+            if (!data.hasExtra(EXTRA_MOVIE_ID))
+                return;
+
+            int movieId = data.getIntExtra(EXTRA_MOVIE_ID, 0);
+            if (movieId == 0)
+                return;
+
+            if (getSortOrder() == SORT_ORDER_FAVORITE) {
+                moviesListViewModel.retrieveFavorites(getContentResolver());
+            } else {
+                moviesListViewModel.refreshFavoriteStatusByMovieId(movieId, getContentResolver());
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

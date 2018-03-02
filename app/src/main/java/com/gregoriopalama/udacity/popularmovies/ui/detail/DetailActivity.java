@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import static com.gregoriopalama.udacity.popularmovies.ui.detail.ReviewsActivity.MOVIE_TITLE_EXTRA;
 import static com.gregoriopalama.udacity.popularmovies.ui.detail.ReviewsActivity.REVIEWS_LIST_EXTRA;
 import static com.gregoriopalama.udacity.popularmovies.ui.detail.ReviewsActivity.REVIEW_ID_EXTRA;
+import static com.gregoriopalama.udacity.popularmovies.ui.list.MainActivity.EXTRA_MOVIE_ID;
 
 /**
  * Detail Activity. It shows the movie's details
@@ -208,6 +209,7 @@ public class DetailActivity extends AppCompatActivity implements VideoListener, 
     @Override
     public void finish() {
         Intent data = new Intent();
+        data.putExtra(EXTRA_MOVIE_ID, movieViewModel.getMovie().getId());
         setResult(result, data);
         super.finish();
     }
